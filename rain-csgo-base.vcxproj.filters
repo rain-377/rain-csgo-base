@@ -638,6 +638,12 @@
     <ClInclude Include="dependencies\json\json_fwd.hpp">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
+    <ClInclude Include="main\sdk\datatypes\material.h">
+      <Filter>Arquivos de Cabeçalho</Filter>
+    </ClInclude>
+    <ClInclude Include="main\sdk\datatypes\material_var.h">
+      <Filter>Arquivos de Cabeçalho</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Library Include="dependencies\freetype\win32\freetype.lib" />

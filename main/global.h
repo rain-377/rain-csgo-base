@@ -1,6 +1,12 @@
 #pragma once
+#include "common.h"
+#include "sdk/vector.h"
+#include "sdk/qangle.h"
+#include "sdk/datatypes/usercmd.h"
+#include "sdk/entity.h"
 
-namespace g
+namespace csgo
 {
-	inline bool m_unload = false;
+	inline user_cmd* m_cmd = nullptr;
+	inline base_animating* m_local = nullptr;
 }

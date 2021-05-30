@@ -24,7 +24,6 @@
 #include "../dependencies/imgui/dx9/imgui_impl_dx9.h"
 #include "../dependencies/imgui/win32/imgui_impl_win32.h"
 
-#include "global.h"
 #include "utils/utils.h"
 #include "utils/input.h"
 #include "sdk/fnv1a.h"

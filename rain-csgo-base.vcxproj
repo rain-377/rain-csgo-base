@@ -339,6 +339,8 @@
     <ClInclude Include="main\sdk\animations.h" />
     <ClInclude Include="main\sdk\bitbuf.h" />
     <ClInclude Include="main\sdk\datatypes\convar.h" />
+    <ClInclude Include="main\sdk\datatypes\material.h" />
+    <ClInclude Include="main\sdk\datatypes\material_var.h" />
     <ClInclude Include="main\sdk\datatypes\utlmemory.h" />
     <ClInclude Include="main\sdk\datatypes\utlvector.h" />
     <ClInclude Include="main\sdk\definitions.h" />

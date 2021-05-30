@@ -5,6 +5,7 @@
 
 void visuals::on_paint()
 {
+
 	for (int i = 1; i < g_global_vars->m_max_clients; i++)
 	{
 		auto entity = reinterpret_cast<base_entity*>(g_entity_list->get_client_entity(i));

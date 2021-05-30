@@ -2,6 +2,7 @@
 #include "../utils/math.h"
 #include "../features/features.h"
 #include "../utils/render.h"
+#include "../global.h"
 #include "../../dependencies/minhook/minhook.h"
 
 bool create_hook(void* target, void* detour,
@@ -50,16 +51,25 @@ void hooks::restore()
 
 bool __stdcall hooks::create_move::hooked(float input_sample_time, user_cmd* cmd)
 {
+	csgo::m_cmd = cmd;
+	csgo::m_local = reinterpret_cast<base_animating*>(g_entity_list->get_client_entity(g_engine_client->get_local_player()));
+	
 	if (!cmd || !cmd->command_number)
 		return original(input_sample_time, cmd);
 
 	if (original(input_sample_time, cmd))
 		g_prediction->set_local_view_angles(cmd->viewangles);
 
-	auto local = reinterpret_cast<base_player*>(g_entity_list->get_client_entity(g_engine_client->get_local_player()));
-
-	const volatile auto base_address = *reinterpret_cast<uintptr_t*>(reinterpret_cast<std::uintptr_t>(_AddressOfReturnAddress()) - sizeof(uintptr_t));
+	const volatile auto base_address = *reinterpret_cast<uintptr_t*>(reinterpret_cast<uintptr_t>(_AddressOfReturnAddress()) - sizeof(uintptr_t));
 	bool& send_packet = *reinterpret_cast<bool*>(base_address - 0x1C);
+
+	static auto cl_forwardspeed = g_cvar_system->find_var("cl_forwardspeed");
+	static auto cl_sidespeed = g_cvar_system->find_var("cl_sidespeed");
+	static auto cl_upspeed = g_cvar_system->find_var("cl_upspeed");
+
+	cmd->forwardmove = std::clamp(cmd->forwardmove, -cl_forwardspeed->get_float(), cl_forwardspeed->get_float());
+	cmd->sidemove = std::clamp(cmd->sidemove, -cl_sidespeed->get_float(), cl_sidespeed->get_float());
+	cmd->upmove = std::clamp(cmd->upmove, -cl_upspeed->get_float(), cl_upspeed->get_float());
 
 	cmd->viewangles.normalize();
 
