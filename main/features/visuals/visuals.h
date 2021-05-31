@@ -2,7 +2,6 @@
 #include "../../common.h"
 #include "../../sdk/entity.h"
 
-
 struct bbox
 {
 	int x, y, w, h;

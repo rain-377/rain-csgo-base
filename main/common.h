@@ -14,6 +14,7 @@
 #include <any>
 #include <filesystem>
 #include <deque>
+#include <array>
 #include <d3d9.h>
 #include <d3dx9.h>
 

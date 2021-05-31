@@ -34,8 +34,20 @@ bool interfaces::setup()
 	if (!g_global_vars)
 		return false;
 
+	g_material_system = get<material_system*>("materialsystem.dll", "VMaterialSystem080");
+	if (!g_global_vars)
+		return false;
+
+	g_model_render = get<model_render*>(ENGINE, "VEngineModel016");
+	if (!g_global_vars)
+		return false;
+
 	g_prediction = get<prediction*>(CLIENT, "VClientPrediction001");
 	if (!g_prediction)
+		return false;
+
+	g_studio_render = get<studio_render*>("studiorender.dll", "VStudioRender026");
+	if (!g_studio_render)
 		return false;
 
 	g_surface = get<surface*>("vguimatsurface.dll", "VGUI_Surface031");

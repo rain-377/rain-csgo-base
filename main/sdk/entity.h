@@ -57,6 +57,7 @@ public:
 	NETVAR(vector, m_vecVelocity, "DT_BasePlayer->m_vecVelocity[0]")
 	NETVAR(uint32_t, m_nTickBase, "DT_BasePlayer->m_nTickBase")
 	NETVAR(vector, m_vecViewOffset, "DT_BasePlayer->m_vecViewOffset[0]")
+	NETVAR(bool, m_bIsScoped, "DT_CSPlayer->m_bIsScoped")
 
 	inline bool is_alive() { return m_iHealth() > 0; }
 	inline vector get_eye_position() { return m_vecOrigin() + m_vecViewOffset(); }

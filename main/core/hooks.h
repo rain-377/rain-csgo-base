@@ -22,6 +22,11 @@ namespace hooks
 		inline decltype(&hooked) original = nullptr;
 	};
 
+	namespace draw_model_execute
+	{
+		void __fastcall hooked(model_render* ecx, void* edx, void* context, const draw_model_state& state, const model_render_info& info, matrix3x4_t* bone_to_world);
+		inline decltype(&hooked) original = nullptr;
+	};
 
 	namespace reset
 	{

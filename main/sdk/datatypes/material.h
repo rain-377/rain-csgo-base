@@ -17,7 +17,7 @@ public:
 		utils::get_virtual<void(__thiscall*)(void*, float)>(this, 27)(this, alpha);
 	}
 
-	void alpha_modulate(float red, float green, float blue)
+	void color_modulate(float red, float green, float blue)
 	{
 		utils::get_virtual<void(__thiscall*)(void*, float, float, float)>(this, 28)(this, red, green, blue);
 	}

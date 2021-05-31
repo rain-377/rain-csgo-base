@@ -26,6 +26,9 @@ bool hooks::setup()
 	if (!create_hook(utils::get_virtual<void*>(g_client, 37), &frame_stage_notify::hooked, &frame_stage_notify::original))
 		return false;
 
+	if (!create_hook(utils::get_virtual<void*>(g_model_render, 21), &draw_model_execute::hooked, &draw_model_execute::original))
+		return false;
+
 	if (!create_hook(utils::get_virtual<void*>(g_direct_device, 16), &reset::hooked, &reset::original))
 		return false;
 
@@ -84,7 +87,20 @@ void __stdcall hooks::frame_stage_notify::hooked(client_frame_stage stage)
 	original(stage);
 }
 
-long D3DAPI hooks::reset::hooked(IDirect3DDevice9* pDevice, D3DPRESENT_PARAMETERS* pPresentationParameters) {
+void __fastcall hooks::draw_model_execute::hooked(model_render* ecx, void* edx, void* context, const draw_model_state& state,
+	const model_render_info& info, matrix3x4_t* bone_to_world)
+{
+	if (chams::get().on_draw_model(ecx, edx, context, state, info, bone_to_world)) 
+	{
+		original(ecx, edx, context, state, info, bone_to_world);
+	}
+
+	g_model_render->forced_material_override(nullptr);
+}
+
+
+long D3DAPI hooks::reset::hooked(IDirect3DDevice9* pDevice, D3DPRESENT_PARAMETERS* pPresentationParameters) 
+{
 	ImGui_ImplDX9_InvalidateDeviceObjects();
 
 	const HRESULT reset = original(pDevice, pPresentationParameters);
@@ -95,7 +111,8 @@ long D3DAPI hooks::reset::hooked(IDirect3DDevice9* pDevice, D3DPRESENT_PARAMETER
 	return reset;
 }
 
-long D3DAPI hooks::end_scene::hooked(IDirect3DDevice9* pDevice) {
+long D3DAPI hooks::end_scene::hooked(IDirect3DDevice9* pDevice) 
+{
 	static void* used_address = nullptr;
 
 	if (used_address == nullptr)

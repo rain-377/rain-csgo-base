@@ -2,6 +2,7 @@
 #include "../../core/interfaces.h"
 #include "../../utils/render.h"
 #include "../../utils/config.h"
+#include "../../global.h"
 
 void visuals::on_paint()
 {
@@ -13,7 +14,7 @@ void visuals::on_paint()
 			continue;
 
 		auto player = reinterpret_cast<base_player*>(entity);
-		if (!player->is_alive())
+		if (!player->is_alive() || player == csgo::m_local)
 			continue;
 
 		auto bbox = get_bbox(entity);
