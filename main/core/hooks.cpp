@@ -66,6 +66,11 @@ bool __stdcall hooks::create_move::hooked(float input_sample_time, user_cmd* cmd
 	const volatile auto base_address = *reinterpret_cast<uintptr_t*>(reinterpret_cast<uintptr_t>(_AddressOfReturnAddress()) - sizeof(uintptr_t));
 	bool& send_packet = *reinterpret_cast<bool*>(base_address - 0x1C);
 
+	// features
+	{
+		triggerbot::get().on_create_move(cmd);
+	}
+
 	static auto cl_forwardspeed = g_cvar_system->find_var("cl_forwardspeed");
 	static auto cl_sidespeed = g_cvar_system->find_var("cl_sidespeed");
 	static auto cl_upspeed = g_cvar_system->find_var("cl_upspeed");

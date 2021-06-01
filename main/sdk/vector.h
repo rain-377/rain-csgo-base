@@ -250,3 +250,33 @@ public:
 public:
 	float x, y, z;
 };
+
+class vector_4d
+{
+public:
+	constexpr vector_4d(float x = 0.f, float y = 0.f, float z = 0.f, float w = 0.f) :
+		x(x), y(y), z(z), w(w) { }
+
+public:
+	float x, y, z, w;
+};
+
+class __declspec(align(16)) vector_aligned : public vector
+{
+public:
+	vector_aligned() = default;
+
+	explicit vector_aligned(const vector& vecBase)
+	{
+		this->x = vecBase.x; this->y = vecBase.y; this->z = vecBase.z; this->w = 0.f;
+	}
+
+	constexpr vector_aligned& operator=(const vector& vecBase)
+	{
+		this->x = vecBase.x; this->y = vecBase.y; this->z = vecBase.z; this->w = 0.f;
+		return *this;
+	}
+
+public:
+	float w;
+};

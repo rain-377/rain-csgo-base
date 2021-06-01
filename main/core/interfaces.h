@@ -6,6 +6,7 @@
 #include "../sdk/interfaces/client_state.h"
 #include "../sdk/interfaces/cvar_system.h"
 #include "../sdk/interfaces/engine_client.h"
+#include "../sdk/interfaces/engine_trace.h"
 #include "../sdk/interfaces/global_vars_base.h"
 #include "../sdk/interfaces/material_system.h"
 #include "../sdk/interfaces/model_render.h"
@@ -13,6 +14,7 @@
 #include "../sdk/interfaces/prediction.h"
 #include "../sdk/interfaces/studio_render.h"
 #include "../sdk/interfaces/surface.h"
+#include "../sdk/interfaces/weapon_system.h"
 
 namespace interfaces
 {
@@ -52,6 +54,7 @@ inline client_state* g_client_state;
 inline cvar_system* g_cvar_system;
 inline IDirect3DDevice9* g_direct_device;
 inline engine_client* g_engine_client;
+inline engine_trace* g_engine_trace;
 inline global_vars_base* g_global_vars;
 inline material_system* g_material_system;
 inline model_render* g_model_render;
@@ -59,3 +62,4 @@ inline net_channel* g_net_channel;
 inline prediction* g_prediction;
 inline studio_render* g_studio_render;
 inline surface* g_surface;
+inline weapon_system* g_weapon_system;

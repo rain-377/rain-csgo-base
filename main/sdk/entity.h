@@ -41,6 +41,25 @@ public:
 	NETVAR(float, m_nFallbackStatTrak, "DT_BaseAttributableItem->m_nFallbackStatTrak")
 };
 
+class base_combat_weapon : public base_attributable_item
+{
+public:
+	NETVAR(int, m_iClip1, "DT_BaseCombatWeapon->m_iClip1")
+	NETVAR(int, m_zoomLevel, "DT_BaseCombatWeapon->m_zoomLevel")
+	NETVAR(float, m_flNextPrimaryAttack, "DT_BaseCombatWeapon->m_flNextPrimaryAttack")
+	NETVAR(float, m_flNextSecondaryAttack, "DT_BaseCombatWeapon->m_flNextSecondaryAttack")
+
+	inline float get_spread()
+	{
+		return utils::get_virtual<float(__thiscall*)(void*)>(this, 452)(this);
+	}
+
+	inline float get_inaccuracy()
+	{
+		return utils::get_virtual<float(__thiscall*)(void*)>(this, 482)(this);
+	}
+};
+
 class base_combat_character : public base_entity 
 {
 public:
@@ -57,6 +76,10 @@ public:
 	NETVAR(vector, m_vecVelocity, "DT_BasePlayer->m_vecVelocity[0]")
 	NETVAR(uint32_t, m_nTickBase, "DT_BasePlayer->m_nTickBase")
 	NETVAR(vector, m_vecViewOffset, "DT_BasePlayer->m_vecViewOffset[0]")
+	NETVAR(qangle, m_viewPunchAngle, "DT_BasePlayer->m_viewPunchAngle")
+	NETVAR(qangle, m_aimPunchAngle, "DT_BasePlayer->m_aimPunchAngle")
+	NETVAR(vector, m_aimPunchAngleVel, "DT_BasePlayer->m_aimPunchAngleVel")
+
 	NETVAR(bool, m_bIsScoped, "DT_CSPlayer->m_bIsScoped")
 
 	inline bool is_alive() { return m_iHealth() > 0; }

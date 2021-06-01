@@ -1,6 +1,7 @@
 #pragma once
 #include "../../common.h"
 #include "../qangle.h"
+#include "../vector.h"
 
 #define IN_ATTACK		(1 << 0)
 #define IN_JUMP			(1 << 1)
@@ -42,6 +43,8 @@ public:
 
 	// Player instantaneous view angles.
 	qangle	viewangles;
+
+	vector	aim_direction;
 	// Intended velocities
 	//	forward velocity.
 	float	forwardmove;

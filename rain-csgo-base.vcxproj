@@ -176,6 +176,7 @@
     <ClCompile Include="main\core\menu.cpp" />
     <ClCompile Include="main\dllmain.cpp" />
     <ClCompile Include="main\features\visuals\chams.cpp" />
+    <ClCompile Include="main\features\legitbot\triggerbot.cpp" />
     <ClCompile Include="main\features\visuals\visuals.cpp" />
     <ClCompile Include="main\sdk\collideable.h" />
     <ClCompile Include="main\sdk\entity.cpp" />
@@ -334,6 +335,7 @@
     <ClInclude Include="main\core\interfaces.h" />
     <ClInclude Include="main\core\menu.h" />
     <ClInclude Include="main\features\visuals\chams.h" />
+    <ClInclude Include="main\features\legitbot\triggerbot.h" />
     <ClInclude Include="main\features\visuals\visuals.h" />
     <ClInclude Include="main\features\features.h" />
     <ClInclude Include="main\global.h" />
@@ -358,6 +360,7 @@
     <ClInclude Include="main\sdk\interfaces\cvar_system.h" />
     <ClInclude Include="main\sdk\interfaces\engine_client.h" />
     <ClInclude Include="main\sdk\interfaces\client_entity_list.h" />
+    <ClInclude Include="main\sdk\interfaces\engine_trace.h" />
     <ClInclude Include="main\sdk\interfaces\global_vars_base.h" />
     <ClInclude Include="main\sdk\interfaces\material_system.h" />
     <ClInclude Include="main\sdk\interfaces\model_render.h" />
@@ -365,6 +368,7 @@
     <ClInclude Include="main\sdk\interfaces\prediction.h" />
     <ClInclude Include="main\sdk\interfaces\studio_render.h" />
     <ClInclude Include="main\sdk\interfaces\surface.h" />
+    <ClInclude Include="main\sdk\interfaces\weapon_system.h" />
     <ClInclude Include="main\sdk\matrix.h" />
     <ClInclude Include="main\sdk\netvars\netvars.h" />
     <ClInclude Include="main\sdk\qangle.h" />

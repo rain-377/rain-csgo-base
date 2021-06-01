@@ -27,6 +27,35 @@ void math::vector_angles(const vector& forward, qangle& view_angle)
 	view_angle.z = 0.f;
 }
 
+void math::angle_vectors(const qangle& angles, vector* forward, vector* right, vector* up) {
+	float sp, sy, sr, cp, cy, cr;
+
+	DirectX::XMScalarSinCos(&sp, &cp, M_DEG2RAD(angles.x));
+	DirectX::XMScalarSinCos(&sy, &cy, M_DEG2RAD(angles.y));
+	DirectX::XMScalarSinCos(&sr, &cr, M_DEG2RAD(angles.z));
+
+	if (forward)
+	{
+		forward->x = cp * cy;
+		forward->y = cp * sy;
+		forward->z = -sp;
+	}
+
+	if (right)
+	{
+		right->x = -1 * sr * sp * cy + -1 * cr * -sy;
+		right->y = -1 * sr * sp * sy + -1 * cr * cy;
+		right->z = -1 * sr * cp;
+	}
+
+	if (up)
+	{
+		up->x = cr * sp * cy + -sr * -sy;
+		up->y = cr * sp * sy + -sr * cy;
+		up->z = cr * cp;
+	}
+}
+
 qangle math::calc_angle(const vector& start, const vector& end)
 {
 	qangle view_angle;

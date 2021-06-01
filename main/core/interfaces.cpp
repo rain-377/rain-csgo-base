@@ -30,6 +30,10 @@ bool interfaces::setup()
 	if (!g_engine_client)
 		return false;
 
+	g_engine_trace = get<engine_trace*>(ENGINE, "EngineTraceClient004");
+	if (!g_engine_trace)
+		return false;
+
 	g_global_vars = **reinterpret_cast<global_vars_base***>(utils::find_signature(CLIENT, "A1 ? ? ? ? 5E 8B 40 10") + 0x1);
 	if (!g_global_vars)
 		return false;
@@ -52,6 +56,10 @@ bool interfaces::setup()
 
 	g_surface = get<surface*>("vguimatsurface.dll", "VGUI_Surface031");
 	if (!g_surface)
+		return false;
+
+	g_weapon_system = *reinterpret_cast<weapon_system**>(utils::find_signature(CLIENT, "8B 35 ? ? ? ? FF 10 0F B7 C0") + 0x2);
+	if (!g_weapon_system)
 		return false;
 
 	return true;
