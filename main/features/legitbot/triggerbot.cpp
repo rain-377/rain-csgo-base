@@ -1,8 +1,9 @@
 #include "triggerbot.h"
+#include "../../utils/config.h"
 
 void triggerbot::on_create_move(user_cmd* cmd)
 {
-	if (!csgo::m_local || !csgo::m_local->is_alive())
+	if (!csgo::m_local || !csgo::m_local->is_alive() || !config::get<bool>(HASH_CT("legitbot.triggerbot.enabled")))
 		return;
 
 	auto weapon = reinterpret_cast<base_combat_weapon*>(g_entity_list->get_client_entity_from_handle(csgo::m_local->m_hActiveWeapon()));
@@ -41,7 +42,7 @@ void triggerbot::on_create_move(user_cmd* cmd)
 	const auto player = reinterpret_cast<base_player*>(entity);
 
 	if (!player->is_alive()
-		|| !player->m_iTeamNum() == csgo::m_local->m_iTeamNum())
+		|| player->m_iTeamNum() == csgo::m_local->m_iTeamNum())
 		return;
 
 	csgo::m_cmd->buttons |= IN_ATTACK;

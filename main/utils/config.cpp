@@ -10,6 +10,8 @@ namespace config
 		ADD_ITEM(float, "example.test_slider_float", 0.f);
 		ADD_ITEM(int, "example.test_combo", 0);
 
+		ADD_ITEM(bool, "legitbot.triggerbot.enabled", false);
+
 		ADD_ITEM(bool, "visuals.esp.name", true);
 		ADD_ITEM(bool, "visuals.esp.health", true);
 

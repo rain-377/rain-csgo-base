@@ -14,6 +14,8 @@ void menu::on_paint()
 		ImGui::SliderFloat("test slider float", &config::get<float>(HASH_CT("example.test_slider_float")), 0.f, 100.f);
 		ImGui::Combo("test combo", &config::get<int>(HASH_CT("example.test_combo")), "item 1\0item 2\0item 3\0\0");
 
+		ImGui::Checkbox("triggerbot", &config::get<bool>(HASH_CT("legitbot.triggerbot.enabled")));
+
 		ImGui::Checkbox("name esp", &config::get<bool>(HASH_CT("visuals.esp.name")));
 		ImGui::Checkbox("health esp", &config::get<bool>(HASH_CT("visuals.esp.health")));
 
