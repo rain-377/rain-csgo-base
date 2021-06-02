@@ -297,6 +297,7 @@
     <ClInclude Include="main\sdk\interfaces\engine_trace.h" />
     <ClInclude Include="main\sdk\interfaces\global_vars_base.h" />
     <ClInclude Include="main\sdk\interfaces\material_system.h" />
+    <ClInclude Include="main\sdk\interfaces\model_info.h" />
     <ClInclude Include="main\sdk\interfaces\model_render.h" />
     <ClInclude Include="main\sdk\interfaces\net_channel.h" />
     <ClInclude Include="main\sdk\interfaces\prediction.h" />

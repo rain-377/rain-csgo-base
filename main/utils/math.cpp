@@ -56,6 +56,13 @@ void math::angle_vectors(const qangle& angles, vector* forward, vector* right, v
 	}
 }
 
+vector math::vector_transform(const vector& vec_transform, const matrix3x4_t& matrix) {
+	return vector(vec_transform.dot_product(matrix[0]) + matrix[0][3],
+		vec_transform.dot_product(matrix[1]) + matrix[1][3],
+		vec_transform.dot_product(matrix[2]) + matrix[2][3]);
+}
+
+
 qangle math::calc_angle(const vector& start, const vector& end)
 {
 	qangle view_angle;

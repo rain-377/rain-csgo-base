@@ -39,11 +39,15 @@ bool interfaces::setup()
 		return false;
 
 	g_material_system = get<material_system*>("materialsystem.dll", "VMaterialSystem080");
-	if (!g_global_vars)
+	if (!g_material_system)
 		return false;
 
 	g_model_render = get<model_render*>(ENGINE, "VEngineModel016");
-	if (!g_global_vars)
+	if (!g_model_render)
+		return false;
+
+	g_model_info = get<model_info*>(ENGINE, "VModelInfoClient004");
+	if (!g_model_info)
 		return false;
 
 	g_prediction = get<prediction*>(CLIENT, "VClientPrediction001");
