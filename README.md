@@ -7,7 +7,6 @@
 - I have already added a simple esp to the base
 
 ## 🔨 To do:
-1. Add more interfaces
-2. Add comments to make it easier for begginers
-3. Add more basic features
-4. Update ImGui version
+1. Add comments to make it easier for begginers
+2. Add more basic features
+3. Update ImGui version
