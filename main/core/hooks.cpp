@@ -55,7 +55,7 @@ void hooks::restore()
 bool __stdcall hooks::create_move::hooked(float input_sample_time, user_cmd* cmd)
 {
 	csgo::m_cmd = cmd;
-	csgo::m_local = reinterpret_cast<base_animating*>(g_entity_list->get_client_entity(g_engine_client->get_local_player()));
+	csgo::m_local = reinterpret_cast<cs_player*>(g_entity_list->get_client_entity(g_engine_client->get_local_player()));
 	
 	if (!cmd || !cmd->command_number)
 		return original(input_sample_time, cmd);

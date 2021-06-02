@@ -16,12 +16,30 @@ public:
 	NETVAR(vector, m_vecOrigin, "DT_BaseEntity->m_vecOrigin")
 	NETVAR(int, m_iTeamNum, "DT_BaseEntity->m_iTeamNum")
 	NETVAR(float, m_flSimulationTime, "DT_BaseEntity->m_flSimulationTime")
+
+	OFFSET(get_occlusion_flags(), uint32_t, 0xA28)
+	OFFSET(get_occlusion_frame_count(), int, 0xA30)
+	OFFSET(get_most_recent_model_bone_counter(), unsigned long, 0x268C + 0x4)
+	OFFSET(get_last_setup_bones_time(), float, 0x2920 + 0x4)
+
 	NETVAR_OFFSET(float, get_old_simulation_time, "DT_BaseEntity->m_flSimulationTime", 0x4)
+
+	DATAFIELD(int, m_iEFlags, this->get_prediction_desc_map(), "m_iEFlags");
+	DATAFIELD(vector, m_vecAbsVelocity, this->get_prediction_desc_map(), "m_vecAbsVelocity");
 
 	inline bool is_player()
 	{
 		return utils::get_virtual<bool(__thiscall*)(void*)>(this, 157)(this);
 	}
+
+	inline void invalidate_bone_cache() 
+	{
+		static auto most_recent_model_bone_counter = **reinterpret_cast<unsigned long**>(utils::find_signature(CLIENT, "80 3D ? ? ? ? ? 74 16 A1 ? ? ? ? 48 C7 81") + 0xA);
+
+		get_last_setup_bones_time() = std::numeric_limits<float>::lowest();
+		get_most_recent_model_bone_counter() = most_recent_model_bone_counter - 1ul;
+	}
+
 
 	player_info get_info();
 	std::optional<vector> get_bone_position(int bone);
@@ -93,4 +111,17 @@ public:
 
 	OFFSET(get_animation_layers(), anim_layer*, 0x2980)
 	OFFSET(get_animation_state(), anim_state*, 0x3914)
+};
+
+class cs_player : public base_animating
+{
+public:
+
+	NETVAR(qangle, m_angEyeAngles, "DT_CSPlayer->m_angEyeAngles")
+
+	void update_client_side_animation()
+	{
+		return utils::get_virtual<void(__thiscall*)(void*)>(this, 223)(this);
+	}
+
 };

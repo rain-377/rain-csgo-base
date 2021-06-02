@@ -8,5 +8,5 @@
 namespace csgo
 {
 	inline user_cmd* m_cmd = nullptr;
-	inline base_animating* m_local = nullptr;
+	inline cs_player* m_local = nullptr;
 }

@@ -26,7 +26,6 @@ bool netvars::setup()
 
 void netvars::store(std::string_view name, recv_table* table, std::size_t offset) 
 {
-
 	for (auto i = 0; i < table->m_props; ++i) 
 	{
 
@@ -50,5 +49,32 @@ void netvars::store(std::string_view name, recv_table* table, std::size_t offset
 		}
 
 	}
+}
 
+uintptr_t netvars::find_in_data_map(data_map* map, const uint32_t field_name)
+{
+	while (map != nullptr)
+	{
+		for (int i = 0; i < map->m_data_fields; i++)
+		{
+			if (map->m_data_description[i].m_field_name == nullptr)
+				continue;
+
+			if (fnv1a::hash_ct(map->m_data_description[i].m_field_name) == field_name)
+				return map->m_data_description[i].m_field_offset[TD_OFFSET_NORMAL];
+
+			if (map->m_data_description[i].m_field_type == FIELD_EMBEDDED)
+			{
+				if (map->m_data_description[i].m_type_description != nullptr)
+				{
+					if (const auto offset = find_in_data_map(map->m_data_description[i].m_type_description, field_name); offset != 0u)
+						return offset;
+				}
+			}
+		}
+
+		map = map->m_base_map;
+	}
+
+	return 0u;
 }

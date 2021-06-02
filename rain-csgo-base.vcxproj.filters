@@ -674,6 +674,9 @@
     <ClInclude Include="main\sdk\interfaces\weapon_system.h">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
+    <ClInclude Include="main\sdk\datatypes\datamap.h">
+      <Filter>Arquivos de Cabeçalho</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Library Include="dependencies\freetype\win32\freetype.lib" />

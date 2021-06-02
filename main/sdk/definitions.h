@@ -77,6 +77,11 @@
 #define MASK_CURRENT					(CONTENTS_CURRENT_0|CONTENTS_CURRENT_90|CONTENTS_CURRENT_180|CONTENTS_CURRENT_270|CONTENTS_CURRENT_UP|CONTENTS_CURRENT_DOWN)
 #define MASK_DEADSOLID					(CONTENTS_SOLID|CONTENTS_PLAYERCLIP|CONTENTS_WINDOW|CONTENTS_GRATE)
 
+#define TICK_INTERVAL			( g_global_vars->m_interval_per_tick )
+#define TIME_TO_TICKS( t )		( static_cast<int>( 0.5f + static_cast<float>( t ) / TICK_INTERVAL ) )
+#define TICKS_TO_TIME( t )		( TICK_INTERVAL * static_cast<float>( t ) )
+#define ROUND_TO_TICKS( t )		( TICK_INTERVAL * TIME_TO_TICKS( t ) )
+
 enum cstrike15_user_messages
 {
     CS_UM_VGUIMenu = 1,
@@ -225,6 +230,30 @@ enum e_trace_type
     TRACE_WORLD_ONLY,
     TRACE_ENTITIES_ONLY,
     TRACE_EVERYTHING_FILTER_PROPS
+};
+
+enum effect_flags : unsigned int
+{
+	EF_BONEMERGE = 0x001,	// performs bone merge on client side
+	EF_BRIGHTLIGHT = 0x002,	// dlight centered at entity origin
+	EF_DIMLIGHT = 0x004,	// player flashlight
+	EF_NOINTERP = 0x008,	// don't interpolate the next frame
+	EF_NOSHADOW = 0x010,	// don't cast no shadow
+	EF_NODRAW = 0x020,	// don't draw entity
+	EF_NORECEIVESHADOW = 0x040,	// don't receive no shadow
+	EF_BONEMERGE_FASTCULL = 0x080,	// for use with EF_BONEMERGE. if this is set, then it places this ent's origin at its
+											// parent and uses the parent's bbox + the max extents of the aiment.
+											// otherwise, it sets up the parent's bones every frame to figure out where to place
+											// the aiment, which is inefficient because it'll setup the parent's bones even if
+											// the parent is not in the pvs.
+	EF_ITEM_BLINK = 0x100,	// blink an item so that the user notices it.
+	EF_PARENT_ANIMATES = 0x200,	// always assume that the parent entity is animating
+	EF_MARKED_FOR_FAST_REFLECTION = 0x400,	// marks an entity for reflection rendering when using $reflectonlymarkedentities material variable
+	EF_NOSHADOWDEPTH = 0x800,	// indicates this entity does not render into any shadow depthmap
+	EF_SHADOWDEPTH_NOCACHE = 0x1000,	// indicates this entity cannot be cached in shadow depthmap and should render every frame
+	EF_NOFLASHLIGHT = 0x2000,
+	EF_NOCSM = 0x4000,	// indicates this entity does not render into the cascade shadow depthmap
+	EF_MAX_BITS = 15
 };
 
 enum item_definition_index : short

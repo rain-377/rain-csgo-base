@@ -1,4 +1,5 @@
 #pragma once
+#include "datatypes/datamap.h"
 #include "collideable.h"
 #include "qangle.h"
 #include "vector.h"
@@ -115,4 +116,28 @@ class client_entity : public client_unknown, public client_renderable, public cl
 public:
 	virtual const vector& get_abs_origin() const = 0;
 	virtual const qangle& get_abs_angles() const = 0;
+
+	void set_abs_origin(vector origin)
+	{
+		using set_abs_origin_fn = void(__thiscall*)(void*, const vector&);
+		static auto o_set_abs_origin = reinterpret_cast<set_abs_origin_fn>(utils::find_signature(CLIENT, "55 8B EC 83 E4 F8 51 53 56 57 8B F1 E8"));
+		o_set_abs_origin(this, origin);
+	}
+
+	void set_abs_angles(qangle view)
+	{
+		using set_abs_angles_fn = void(__thiscall*)(void*, const qangle&);
+		static auto o_set_abs_angles = reinterpret_cast<set_abs_angles_fn>(utils::find_signature(CLIENT, "55 8B EC 83 E4 F8 83 EC 64 53 56 57 8B F1 E8"));
+		o_set_abs_angles(this, view);
+	}
+
+	data_map* get_data_desc_map()
+	{
+		return utils::get_virtual<data_map*(__thiscall*)(void*)>(this, 15)(this);
+	}
+
+	data_map* get_prediction_desc_map()
+	{
+		return utils::get_virtual<data_map*(__thiscall*)(void*)>(this, 17)(this);
+	}
 };
