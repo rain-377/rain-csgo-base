@@ -6,7 +6,7 @@ void triggerbot::on_create_move(user_cmd* cmd)
 	if (!csgo::m_local || !csgo::m_local->is_alive() || !config::get<bool>(HASH_CT("legitbot.triggerbot.enabled")))
 		return;
 
-	auto weapon = reinterpret_cast<base_combat_weapon*>(g_entity_list->get_client_entity_from_handle(csgo::m_local->m_hActiveWeapon()));
+	auto weapon = csgo::m_local->get_active_weapon();
 	if (!weapon)
 		return;
 
@@ -16,7 +16,7 @@ void triggerbot::on_create_move(user_cmd* cmd)
 
 	static auto weapon_recoil_scale = g_cvar_system->find_var("weapon_recoil_scale");
 
-	qangle view = csgo::m_cmd->viewangles;
+	qangle view = cmd->viewangles;
 	view += csgo::m_local->m_aimPunchAngle() * weapon_recoil_scale->get_float();
 	vector start, end, forward;
 
@@ -39,11 +39,11 @@ void triggerbot::on_create_move(user_cmd* cmd)
 		|| !entity->is_player())
 		return;
 
-	const auto player = reinterpret_cast<base_player*>(entity);
+	const auto player = reinterpret_cast<cs_player*>(entity);
 
 	if (!player->is_alive()
-		|| player->m_iTeamNum() == csgo::m_local->m_iTeamNum())
+		|| !player->is_enemy(csgo::m_local))
 		return;
 
-	csgo::m_cmd->buttons |= IN_ATTACK;
+	cmd->buttons |= IN_ATTACK;
 }

@@ -27,7 +27,7 @@ bool chams::on_draw_model(model_render* ecx, void* edx, void* context, const dra
 
 	if (strstr(info.m_model->m_name, "models/player") != nullptr)
 	{
-		auto player = reinterpret_cast<base_player*>(g_entity_list->get_client_entity(info.m_index));
+		auto player = reinterpret_cast<cs_player*>(g_entity_list->get_client_entity(info.m_index));
 		if (!player || !player->is_alive())
 			return true;
 

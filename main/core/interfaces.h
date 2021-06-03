@@ -12,6 +12,7 @@
 #include "../sdk/interfaces/model_render.h"
 #include "../sdk/interfaces/model_info.h"
 #include "../sdk/interfaces/net_channel.h"
+#include "../sdk/interfaces/physicssurfaceprops.h"
 #include "../sdk/interfaces/prediction.h"
 #include "../sdk/interfaces/studio_render.h"
 #include "../sdk/interfaces/surface.h"
@@ -60,7 +61,7 @@ inline global_vars_base* g_global_vars;
 inline material_system* g_material_system;
 inline model_render* g_model_render;
 inline model_info* g_model_info;
-inline net_channel* g_net_channel;
+inline physics_surface_props* g_physics_props;
 inline prediction* g_prediction;
 inline studio_render* g_studio_render;
 inline surface* g_surface;

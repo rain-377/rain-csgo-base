@@ -17,6 +17,11 @@ public:
 	NETVAR(int, m_iTeamNum, "DT_BaseEntity->m_iTeamNum")
 	NETVAR(float, m_flSimulationTime, "DT_BaseEntity->m_flSimulationTime")
 
+	NETVAR(float, m_flNextAttack, "DT_BaseCombatCharacter->m_flNextAttack")
+	PNETVAR(base_handle, m_hMyWeapons, "DT_BaseCombatCharacter->m_hMyWeapons")
+	PNETVAR(base_handle, m_hMyWearables, "DT_BaseCombatCharacter->m_hMyWearables")
+	NETVAR(base_handle, m_hActiveWeapon, "DT_BaseCombatCharacter->m_hActiveWeapon")
+
 	OFFSET(get_occlusion_flags(), uint32_t, 0xA28)
 	OFFSET(get_occlusion_frame_count(), int, 0xA30)
 	OFFSET(get_most_recent_model_bone_counter(), unsigned long, 0x268C + 0x4)
@@ -40,7 +45,8 @@ public:
 		get_most_recent_model_bone_counter() = most_recent_model_bone_counter - 1ul;
 	}
 
-
+	base_combat_weapon* get_active_weapon();
+	bool is_enemy(base_entity* entity);
 	player_info get_info();
 	std::optional<vector> get_bone_position(int bone);
 };
@@ -67,6 +73,10 @@ public:
 	NETVAR(float, m_flNextPrimaryAttack, "DT_BaseCombatWeapon->m_flNextPrimaryAttack")
 	NETVAR(float, m_flNextSecondaryAttack, "DT_BaseCombatWeapon->m_flNextSecondaryAttack")
 
+	NETVAR(int, m_flPostponeFireReadyTime, "DT_WeaponCSBaseGun->m_flPostponeFireReadyTime")
+	NETVAR(bool, m_bBurstMode, "DT_WeaponCSBaseGun->m_bBurstMode")
+	NETVAR(int, m_iBurstShotsRemaining, "DT_WeaponCSBaseGun->m_iBurstShotsRemaining")
+
 	inline float get_spread()
 	{
 		return utils::get_virtual<float(__thiscall*)(void*)>(this, 452)(this);
@@ -78,15 +88,7 @@ public:
 	}
 };
 
-class base_combat_character : public base_entity 
-{
-public:
-	PNETVAR(base_handle, m_hMyWeapons, "DT_BaseCombatCharacter->m_hMyWeapons")
-	PNETVAR(base_handle, m_hMyWearables, "DT_BaseCombatCharacter->m_hMyWearables")
-	NETVAR(base_handle, m_hActiveWeapon, "DT_BaseCombatCharacter->m_hActiveWeapon")
-};
-
-class base_player : public base_combat_character
+class base_player : public base_entity
 {
 public:
 	NETVAR(uint32_t, m_fFlags, "DT_BasePlayer->m_fFlags")
@@ -97,8 +99,6 @@ public:
 	NETVAR(qangle, m_viewPunchAngle, "DT_BasePlayer->m_viewPunchAngle")
 	NETVAR(qangle, m_aimPunchAngle, "DT_BasePlayer->m_aimPunchAngle")
 	NETVAR(vector, m_aimPunchAngleVel, "DT_BasePlayer->m_aimPunchAngleVel")
-
-	NETVAR(bool, m_bIsScoped, "DT_CSPlayer->m_bIsScoped")
 
 	inline bool is_alive() { return m_iHealth() > 0; }
 	inline vector get_eye_position() { return m_vecOrigin() + m_vecViewOffset(); }
@@ -117,7 +117,13 @@ class cs_player : public base_animating
 {
 public:
 
+	NETVAR(bool, m_bIsScoped, "DT_CSPlayer->m_bIsScoped")
+	NETVAR(bool, m_bHasDefuser, "DT_CSPlayer->m_bHasDefuser")
+	NETVAR(bool, m_bHasHelmet, "DT_CSPlayer->m_bHasHelmet")
+	NETVAR(int, m_ArmorValue, "DT_CSPlayer->m_ArmorValue")
+	NETVAR(bool, m_bHasHeavyArmor, "DT_CSPlayer->m_bHasHeavyArmor")
 	NETVAR(qangle, m_angEyeAngles, "DT_CSPlayer->m_angEyeAngles")
+	NETVAR(bool, m_bGunGameImmunity, "DT_CSPlayer->m_bGunGameImmunity")
 
 	void update_client_side_animation()
 	{

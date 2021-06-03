@@ -13,7 +13,7 @@ void visuals::on_paint()
 		if (!entity || entity->is_dormant() || !entity->is_player())
 			continue;
 
-		auto player = reinterpret_cast<base_player*>(entity);
+		auto player = reinterpret_cast<cs_player*>(entity);
 		if (!player->is_alive() || player == csgo::m_local)
 			continue;
 

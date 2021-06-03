@@ -50,6 +50,10 @@ bool interfaces::setup()
 	if (!g_model_info)
 		return false;
 
+	g_physics_props = get<physics_surface_props*>("vphysics.dll", "VPhysicsSurfaceProps001");
+	if (!g_physics_props)
+		return false;
+
 	g_prediction = get<prediction*>(CLIENT, "VClientPrediction001");
 	if (!g_prediction)
 		return false;
