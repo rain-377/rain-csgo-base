@@ -300,6 +300,7 @@
     <ClInclude Include="main\sdk\interfaces\model_info.h" />
     <ClInclude Include="main\sdk\interfaces\model_render.h" />
     <ClInclude Include="main\sdk\interfaces\net_channel.h" />
+    <ClInclude Include="main\sdk\interfaces\physicssurfaceprops.h" />
     <ClInclude Include="main\sdk\interfaces\prediction.h" />
     <ClInclude Include="main\sdk\interfaces\studio_render.h" />
     <ClInclude Include="main\sdk\interfaces\surface.h" />

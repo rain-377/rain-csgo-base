@@ -680,6 +680,9 @@
     <ClInclude Include="main\sdk\interfaces\model_info.h">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
+    <ClInclude Include="main\sdk\interfaces\physicssurfaceprops.h">
+      <Filter>Arquivos de Cabeçalho</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Library Include="dependencies\freetype\win32\freetype.lib" />
